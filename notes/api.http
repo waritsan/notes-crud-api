@@ -1,0 +1,26 @@
+# Create note
+POST https://jpfbj5jw3g.execute-api.us-east-1.amazonaws.com/dev/notes
+content-type: application/json
+
+{
+    "id": "2",
+    "title": "Note title",
+    "body": "This is the body"
+}
+
+### Update note
+PUT https://jpfbj5jw3g.execute-api.us-east-1.amazonaws.com/dev/notes/1
+content-type: application/json
+
+{
+    "title": "Updated title",
+    "body": "This is a new body"
+}
+
+### Delete note
+DELETE https://jpfbj5jw3g.execute-api.us-east-1.amazonaws.com/dev/notes/2
+content-type: application/json
+
+### Get all notes
+GET https://jpfbj5jw3g.execute-api.us-east-1.amazonaws.com/dev/notes
+Authorization: eyJraWQiOiJRSDlVem43ZmdveVBHaVFKQzdlU0pkc2NMSUpkV2xwdmd6QVFaMG0rV1l3PSIsImFsZyI6IlJTMjU2In0.eyJhdF9oYXNoIjoiZmpObVZrczVwTElOSEJxVnJOT0FRQSIsInN1YiI6Ijg2OWM0NmYyLTZjZDYtNDdkNC05YmIxLTNmMjVmZGZkYTg5MiIsImF1ZCI6IjVlaXA1YWswZmc2YmJmZXNyMjQ0MWFiM3RyIiwiZXZlbnRfaWQiOiIzZThmNWU2Yi1iYmJkLTQwMDMtYWI3Ny1iYjgwNjA5OGViMzAiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTY5OTUxOTM1MCwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfNVBhRzZxNDYzIiwiY29nbml0bzp1c2VybmFtZSI6Indhcml0IiwiZXhwIjoxNjk5NTIyOTUwLCJpYXQiOjE2OTk1MTkzNTAsImp0aSI6ImE0MjcxYzkyLTVhMmYtNDRhYy05MWVjLWQ2YTRmMjM4ZjUxYiJ9.meKJuBtqu9YLrYSYDZ-9EHM6bXnaaIe43-hJCh8tIY8bltJ15JrwOIImfLx-3UJgvlTDV4KBMgPYpcv46ckKvVfun0R4PjYXC0KjNzEmbp-qlUAW2ILP9h9iQWe0GwBb6gzRMhtsMsE0xpnmt3zmvZbr1cIeO45YKNSSWPCkQRnIFHIo-m9wSoK8VM9Zv-nIV53hsbWe39X0t8gU6003RJenvZs8HrQ23HQctUEw4ygQryJEWf1mFR9i-xLS6pS_xRqy2NNVpHdwJr_6HRIKcDMenW_4BHsndZfEGftRNG55RyMYoMD7tMt-R_LWo6ms7apsHPqwkFzlLy8msuWeQw
