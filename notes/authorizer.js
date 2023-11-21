@@ -34,7 +34,7 @@ const generatePolicy = (principalId, effect, resource) => {
 exports.handler = async (event, context, callback) => {
   // lambda authorizer code
   var token = event.authorizationToken;
-  console.log(token);
+  // console.log(token);
   // Validate the token
   try {
     const payload = await jwtVerifier.verify(token);
