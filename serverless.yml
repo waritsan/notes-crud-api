@@ -80,7 +80,5 @@ functions:
 
 plugins:
   - serverless-iam-roles-per-function
-
-# you can add CloudFormation resource templates here
 resources:
   Resources: ${file(resources.yml)}
