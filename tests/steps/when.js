@@ -5,7 +5,7 @@ const agent = require('superagent-promise')(require('superagent'), Promise);
 
 const makeHttpRequest = async (path, method, options) => {
     let root = process.env.TEST_ROOT;
-    let url = `${root}/${path}`;
+    let url = options.noteId ? `${root}/${path}/${options.noteId}` : `${root}/${path}`;
     let httpReq = agent(method, url);
     let body = _.get(options, 'body');
     let idToken = _.get(options, 'idToken');
@@ -31,8 +31,16 @@ const makeHttpRequest = async (path, method, options) => {
 };
 
 exports.we_invoke_createNote = (options) => {
-    // Make an HTTP call
     let response = makeHttpRequest('notes', 'POST', options);
     return response;
+}
 
+exports.we_invoke_updateNote = (options) => {
+    let response = makeHttpRequest('notes', 'PUT', options);
+    return response;
+}
+
+exports.we_invoke_deleteNote = (options) => {
+    let response = makeHttpRequest('notes', 'DELETE', options);
+    return response;
 }

@@ -73,6 +73,7 @@ functions:
       - http:
           method: get
           path: notes
+          authorizer: authorizer
           # authorizer:
           #   name: userpool_authorizer
           #   arn: ${ssm:/notes/${self:provider.stage}/userPoolArn}
