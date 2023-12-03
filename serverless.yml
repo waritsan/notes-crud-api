@@ -80,5 +80,6 @@ functions:
 
 plugins:
   - serverless-iam-roles-per-function
+  - serverless-plugin-typescript
 resources:
   Resources: ${file(resources.yml)}

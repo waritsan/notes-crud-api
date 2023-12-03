@@ -1,5 +1,7 @@
 'use strict';
-const DynamoDB = require("aws-sdk/clients/dynamodb");
+import { DynamoDB } from 'aws-sdk';
+import { APIGatewayEvent, Context, APIGatewayProxyCallback } from 'aws-lambda';
+// const DynamoDB = require("aws-sdk/clients/dynamodb");
 const documentClient = new DynamoDB.DocumentClient({ region: "us-east-1" });
 const NOTES_TABLE_NAME = process.env.NOTES_TABLE_NAME;
 
@@ -10,11 +12,11 @@ const send = (statusCode, data) => {
   };
 };
 
-module.exports.createNote = async (event, context, cb) => {
-  let data = JSON.parse(event.body);
+export const createNote = async (event: APIGatewayEvent, context: Context, cb: APIGatewayProxyCallback) => {
+  let data = JSON.parse(event.body as string);
   try {
     const params = {
-      TableName: NOTES_TABLE_NAME,
+      TableName: NOTES_TABLE_NAME as string,
       Item: {
         notesId: data.id,
         title: data.title,
@@ -29,13 +31,13 @@ module.exports.createNote = async (event, context, cb) => {
   }
 };
 
-module.exports.updateNote = async (event, context, cb) => {
-  let notesId = event.pathParameters.id;
-  let data = JSON.parse(event.body);
+export const updateNote = async (event: APIGatewayEvent, context: Context, cb: APIGatewayProxyCallback) => {
+  let notesId = event.pathParameters?.id;
+  let data = JSON.parse(event.body as string);
 
   try {
     const params = {
-      TableName: NOTES_TABLE_NAME,
+      TableName: NOTES_TABLE_NAME as string,
       Key: { notesId },
       UpdateExpression: "set #title = :title, #body = :body",
       ExpressionAttributeNames: {
@@ -55,12 +57,12 @@ module.exports.updateNote = async (event, context, cb) => {
   }
 };
 
-module.exports.deleteNote = async (event, context, cb) => {
-  let notesId = event.pathParameters.id;
+export const deleteNote = async (event: APIGatewayEvent, context: Context, cb: APIGatewayProxyCallback) => {
+  let notesId = event.pathParameters?.id;
 
   try {
     const params = {
-      TableName: NOTES_TABLE_NAME,
+      TableName: NOTES_TABLE_NAME as string,
       Key: { notesId },
       ConditionExpression: "attribute_exists(notesId)"
     };
@@ -68,13 +70,13 @@ module.exports.deleteNote = async (event, context, cb) => {
     cb(null, send(200, notesId))
   } catch (err) {
     cb(null, send(500, err.message));
-  }
+  } 
 };
 
-module.exports.getAllNotes = async (event, context, cb) => {
+export const getAllNotes = async (event: APIGatewayEvent, context: Context, cb: APIGatewayProxyCallback) => {
   try {
     const params = {
-      TableName: NOTES_TABLE_NAME,
+      TableName: NOTES_TABLE_NAME as string,
     };
     const notes = await documentClient.scan(params).promise();
     cb(null, send(200, notes))

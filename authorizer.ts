@@ -1,3 +1,5 @@
+import { APIGatewayTokenAuthorizerEvent, Context, AuthResponse } from 'aws-lambda';
+
 const { CognitoJwtVerifier } = require("aws-jwt-verify");
 const COGNITO_USERPOOL_ID = process.env.COGNITO_USERPOOL_ID;
 const COGNITO_WEB_CLIENT_ID = process.env.COGNITO_WEB_CLIENT_ID;
@@ -8,13 +10,13 @@ const jwtVerifier = CognitoJwtVerifier.create({
   clientId: COGNITO_WEB_CLIENT_ID
 })
 
-const generatePolicy = (principalId, effect, resource) => {
+const generatePolicy = (principalId, effect, resource): AuthResponse => {
   var tmp = resource.split(':');
   var apiGatewayArnTmp = tmp[5].split('/');
 
-  var resource = tmp[0] + ":" + tmp[1] + ":" + tmp[2] + ":" + tmp[3] + ":" + tmp[4] + ":" + apiGatewayArnTmp[0] + '/*/*';
+  resource = tmp[0] + ":" + tmp[1] + ":" + tmp[2] + ":" + tmp[3] + ":" + tmp[4] + ":" + apiGatewayArnTmp[0] + '/*/*';
 
-  var authReponse = {};
+  let authReponse = {} as AuthResponse;
   authReponse.principalId = principalId;
   if (effect && resource) {
     let policyDocument = {
@@ -36,7 +38,7 @@ const generatePolicy = (principalId, effect, resource) => {
   return authReponse;
 };
 
-exports.handler = async (event, context, callback) => {
+export const handler = async (event: APIGatewayTokenAuthorizerEvent, context: Context, callback: any) => {
   // lambda authorizer code
   var token = event.authorizationToken;
   // console.log(token);
